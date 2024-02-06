@@ -40,5 +40,6 @@ jobs:
 
       - name: Push Gem to PackageCloud
         run: |
+            cat ~/.netrc
             gem_file=$(ls pkg/*.gem)
             package_cloud push ${{ secrets.PACKAGECLOUD_USERNAME }}/${{ secrets.PACKAGECLOUD_REPOSITORY }} $gem_file
