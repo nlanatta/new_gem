@@ -29,10 +29,15 @@ jobs:
       - name: Build Gem
         run: bundle exec rake build
 
+      - name: Set Environment Variable
+        run: |
+          gem_file=$(ls pkg/*.gem)
+          echo "GEM_FILE=$gem_file" >> $GITHUB_ENV
+
       - name: push gem to packagecloud.io
         uses: computology/packagecloud-github-action@v0.6
         with:
-          PACKAGE-NAME: $(ls pkg/*.gem)
+          PACKAGE-NAME: $GEM_FILE
           PACKAGECLOUD-USERNAME: ${{ secrets.PACKAGECLOUD_USERNAME }}
           PACKAGECLOUD-REPONAME: ${{ secrets.PACKAGECLOUD_REPOSITORY }}
           PACKAGECLOUD-DISTRO: gem
