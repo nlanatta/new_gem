@@ -37,8 +37,4 @@ jobs:
       - name: Push Gem to PackageCloud
         run: |
             gem_file=$(ls pkg/*.gem)
-            package_cloud push <USER>/<REPO>/rubygems $gem_file
-
-        env:
-          USER: ${{ secrets.PACKAGECLOUD_USERNAME }}
-          REPO: ${{ secrets.PACKAGECLOUD_REPOSITORY }}
+            package_cloud push ${{ secrets.PACKAGECLOUD_USERNAME }}/${{ secrets.PACKAGECLOUD_REPOSITORY }}/rubygems $gem_file
