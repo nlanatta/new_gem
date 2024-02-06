@@ -23,7 +23,7 @@ jobs:
 
       - name: Install PackageCloud CLI
         run: |
-          curl -s https://packagecloud.io/install/repositories/computology/packagecloud/script.deb.sh | bash
+          curl -s 'https://packagecloud.io/install/repositories/computology/packagecloud/script.deb.sh' | bash
           apt-get install -y packagecloud
           package_cloud --version
 
