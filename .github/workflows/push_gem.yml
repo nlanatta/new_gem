@@ -33,13 +33,10 @@ jobs:
         run: |
           gem install package_cloud
 
-      - name: Set up PackageCloud CLI
-        run: |
-          echo "machine packagecloud.io login token ${{ secrets.PACKAGECLOUD_TOKEN }}" >> ~/.netrc
-          chmod 600 ~/.netrc
+      - name: Set Token
+        run: echo '{"url":"https://packagecloud.io/", "token":"'$PACKAGECLOUD_TOKEN'"}' >>.packagecloud-config
 
       - name: Push Gem to PackageCloud
         run: |
             gem_file=$(ls pkg/*.gem)
-            echo $gem_file
-            package_cloud push ${{ secrets.PACKAGECLOUD_USERNAME }}/${{ secrets.PACKAGECLOUD_REPOSITORY }} pkg/$gem_file --url https://packagecloud.io --token ${{ secrets.PACKAGECLOUD_TOKEN }}
+            package_cloud push ${{ secrets.PACKAGECLOUD_USERNAME }}/${{ secrets.PACKAGECLOUD_REPOSITORY }} $gem_file --config=".packagecloud-config"
