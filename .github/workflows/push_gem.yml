@@ -38,7 +38,7 @@ jobs:
       - name: push gem to packagecloud.io
         uses: computology/packagecloud-github-action@v0.6
         with:
-          PACKAGE-NAME: $GEM_FILE
+          PACKAGE-NAME: ${{ env.GITHUB_ENV }}
           PACKAGECLOUD-USERNAME: ${{ secrets.PACKAGECLOUD_USERNAME }}
           PACKAGECLOUD-REPONAME: ${{ secrets.PACKAGECLOUD_REPOSITORY }}
           PACKAGECLOUD-DISTRO: gem
