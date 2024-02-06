@@ -31,7 +31,7 @@ jobs:
 
       - name: Set up PackageCloud CLI
         run: |
-          echo "machine packagecloud.io login token <PACKAGECLOUD_TOKEN>" >> ~/.netrc
+          echo "machine packagecloud.io login token ${{ secrets.PACKAGECLOUD_TOKEN }}" >> ~/.netrc
           chmod 600 ~/.netrc
 
       - name: Push Gem to PackageCloud
@@ -40,5 +40,5 @@ jobs:
             package_cloud push <USER>/<REPO>/rubygems $gem_file
 
         env:
-          USER: <PACKAGECLOUD_USERNAME>
-          REPO: <PACKAGECLOUD_REPOSITORY>
+          USER: ${{ secrets.PACKAGECLOUD_USERNAME }}
+          REPO: ${{ secrets.PACKAGECLOUD_REPOSITORY }}
