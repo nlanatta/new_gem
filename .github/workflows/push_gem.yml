@@ -21,6 +21,12 @@ jobs:
         with:
           ruby-version: '3.2'
 
+      - name: Install PackageCloud CLI
+        run: |
+          curl -s https://packagecloud.io/install/repositories/computology/packagecloud/script.deb.sh | sudo bash
+          sudo apt-get install -y packagecloud
+          package_cloud --version
+
       - name: Install dependencies
         run: |
           gem install bundler
