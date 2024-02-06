@@ -34,7 +34,7 @@ jobs:
           gem install package_cloud
 
       - name: Set Token
-        run: echo '{"url":"https://packagecloud.io/", "token":"'$PACKAGECLOUD_TOKEN'"}' >>.packagecloud-config
+        run: echo '{"url":"https://packagecloud.io/", "token":"'${{ secrets.PACKAGECLOUD_TOKEN }}'"}' >>.packagecloud-config
 
       - name: Push Gem to PackageCloud
         run: |
