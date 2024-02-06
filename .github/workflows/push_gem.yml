@@ -29,17 +29,16 @@ jobs:
       - name: Build Gem
         run: bundle exec rake build
 
-      - name: Set Environment Variable
+      - name: Install PackageCloud CLI
         run: |
-          gem_file=$(ls pkg/*.gem)
-          echo $gem_file
-          echo "GEM_FILE=$gem_file" >> $GITHUB_ENV
+          gem install package_cloud
 
-      - name: push gem to packagecloud.io
-        uses: computology/packagecloud-github-action@v0.6
-        with:
-          PACKAGE-NAME: ${{ env.GITHUB_ENV }}
-          PACKAGECLOUD-USERNAME: ${{ secrets.PACKAGECLOUD_USERNAME }}
-          PACKAGECLOUD-REPONAME: ${{ secrets.PACKAGECLOUD_REPOSITORY }}
-          PACKAGECLOUD-DISTRO: gem
-          PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+      - name: Set up PackageCloud CLI
+        run: |
+          echo "machine packagecloud.io login token ${{ secrets.PACKAGECLOUD_TOKEN }}" >> ~/.netrc
+          chmod 600 ~/.netrc
+
+      - name: Push Gem to PackageCloud
+        run: |
+            gem_file=$(ls pkg/*.gem)
+            package_cloud push ${{ secrets.PACKAGECLOUD_USERNAME }}/${{ secrets.PACKAGECLOUD_REPOSITORY }}/rubygems $gem_file
