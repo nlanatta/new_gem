@@ -30,10 +30,10 @@ jobs:
         run: bundle exec rake build
 
       - name: push gem to packagecloud.io
-        uses: computology/packagecloud-github-action
+        uses: computology/packagecloud-github-action@v0.6
         with:
-            PACKAGE-NAME: $(ls pkg/*.gem)
-            PACKAGECLOUD-USERNAME: ${{ secrets.PACKAGECLOUD_USERNAME }}
-            PACKAGECLOUD-REPONAME: ${{ secrets.PACKAGECLOUD_REPOSITORY }}
-            PACKAGECLOUD-DISTRO: gem
-            PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+          PACKAGE-NAME: $(ls pkg/*.gem)
+          PACKAGECLOUD-USERNAME: ${{ secrets.PACKAGECLOUD_USERNAME }}
+          PACKAGECLOUD-REPONAME: ${{ secrets.PACKAGECLOUD_REPOSITORY }}
+          PACKAGECLOUD-DISTRO: gem
+          PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
