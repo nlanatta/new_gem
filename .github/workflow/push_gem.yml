@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   push_gem:
@@ -32,10 +35,10 @@ jobs:
           chmod 600 ~/.netrc
 
       - name: Push Gem to PackageCloud
-          run: |
+        run: |
             gem_file=$(ls pkg/*.gem)
             package_cloud push <USER>/<REPO>/rubygems $gem_file
 
-          env:
-            USER: <YOUR_PACKAGECLOUD_USERNAME>
-            REPO: <YOUR_PACKAGECLOUD_REPOSITORY>
+        env:
+          USER: <YOUR_PACKAGECLOUD_USERNAME>
+          REPO: <YOUR_PACKAGECLOUD_REPOSITORY>
