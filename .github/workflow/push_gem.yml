@@ -1,0 +1,41 @@
+name: Push Gem to PackageCloud
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_gem:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v3
+        with:
+          ruby-version: 3.2
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Build Gem
+        run: bundle exec rake build
+
+      - name: Set up PackageCloud CLI
+        run: |
+          echo "machine packagecloud.io login token <YOUR_PACKAGECLOUD_TOKEN>" >> ~/.netrc
+          chmod 600 ~/.netrc
+
+      - name: Push Gem to PackageCloud
+          run: |
+            gem_file=$(ls pkg/*.gem)
+            package_cloud push <USER>/<REPO>/rubygems $gem_file
+
+          env:
+            USER: <YOUR_PACKAGECLOUD_USERNAME>
+            REPO: <YOUR_PACKAGECLOUD_REPOSITORY>
