@@ -32,6 +32,7 @@ jobs:
       - name: Set Environment Variable
         run: |
           gem_file=$(ls pkg/*.gem)
+          echo $gem_file
           echo "GEM_FILE=$gem_file" >> $GITHUB_ENV
 
       - name: push gem to packagecloud.io
