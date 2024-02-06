@@ -41,4 +41,4 @@ jobs:
       - name: Push Gem to PackageCloud
         run: |
             gem_file=$(ls pkg/*.gem)
-            package_cloud push ${{ secrets.PACKAGECLOUD_USERNAME }}/${{ secrets.PACKAGECLOUD_REPOSITORY }}/rubygems $gem_file
+            package_cloud push ${{ secrets.PACKAGECLOUD_USERNAME }}/${{ secrets.PACKAGECLOUD_REPOSITORY }} $gem_file
